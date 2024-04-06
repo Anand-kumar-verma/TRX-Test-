@@ -134,7 +134,7 @@ const generatedTimeEveryAfterEveryThreeMin = () => {
   const rule = new schedule.RecurrenceRule();
   rule.second = new schedule.Range(0, 59);
   const job = schedule.scheduleJob(rule, function () {
-    const currentTime = moment(new Date()).add(10, 'hours').add(30, 'minutes').toDate();
+    const currentTime = new Date().add(10, 'hours').add(25, 'minutes').toDate();
     const timeToSend = currentTime > 0 ? 60 - currentTime : currentTime;
     io.emit("threemin", `${min}_${timeToSend}`);
     console.log(moment(currentTime).format("HH:mm:ss"))
