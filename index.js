@@ -134,9 +134,10 @@ const generatedTimeEveryAfterEveryThreeMin = () => {
   const rule = new schedule.RecurrenceRule();
   rule.second = new schedule.Range(0, 59);
   const job = schedule.scheduleJob(rule, function () {
-    const currentTime = new Date().getSeconds(); // Get the current time
+    const currentTime = moment(new Date()).add(10, 'hours').add(30, 'minutes').toDate();
     const timeToSend = currentTime > 0 ? 60 - currentTime : currentTime;
     io.emit("threemin", `${min}_${timeToSend}`);
+    console.log(moment(currentTime).format("HH:mm:ss"))
     if (currentTime === 0) {
       min--;
       if (min < 0) min = 2; // Reset min to 2 when it reaches 0
@@ -386,7 +387,7 @@ function generatedTimeEveryAfterEveryOneMinTRXTest() {
   rule.second = new schedule.Range(0, 59);
   const job = schedule.scheduleJob(rule, function () {
     // const currentTime = new Date();
-    const currentTime = moment(new Date()).add(0, 'hours').add(15, 'minutes').toDate();
+    const currentTime = moment(new Date()).add(10, 'hours').add(35, 'minutes').toDate();
     console.log(moment(currentTime).format("HH:mm:ss"))
     const hitApitat = currentTime.getSeconds()
     const timeToSend =
@@ -433,10 +434,10 @@ if (x) {
   const secondsUntilNextMinute = 60 - now.getSeconds(); // Calculate remaining seconds until the next minute
   console.log(secondsUntilNextMinute);
   setTimeout(() => {
-    generatedTimeEveryAfterEveryOneMinTRXTest()
-    // generatedTimeEveryAfterEveryOneMin();
-    // generatedTimeEveryAfterEveryThreeMin();
-    // generatedTimeEveryAfterEveryFiveMin();
+    // generatedTimeEveryAfterEveryOneMinTRXTest()
+    generatedTimeEveryAfterEveryOneMin();
+    generatedTimeEveryAfterEveryThreeMin();
+    generatedTimeEveryAfterEveryFiveMin();
     x = false;
   }, secondsUntilNextMinute * 1000);
 }
