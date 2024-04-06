@@ -386,7 +386,7 @@ function generatedTimeEveryAfterEveryOneMinTRXTest() {
   rule.second = new schedule.Range(0, 59);
   const job = schedule.scheduleJob(rule, function () {
     // const currentTime = new Date();
-    const currentTime = moment(new Date()).add(1, 'hours').add(20, 'minutes').toDate();
+    const currentTime = moment(new Date()).add(0, 'hours').add(15, 'minutes').toDate();
     console.log(moment(currentTime).format("HH:mm:ss"))
     const hitApitat = currentTime.getSeconds()
     const timeToSend =
@@ -427,7 +427,7 @@ console.log(timeToSend,"TIme to send");
 
 
 if (x) {
-  generateAndSendMessage();
+  // generateAndSendMessage();
   console.log("Waiting for the next minute to start...");
   const now = new Date();
   const secondsUntilNextMinute = 60 - now.getSeconds(); // Calculate remaining seconds until the next minute
