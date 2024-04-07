@@ -426,6 +426,25 @@ console.log(timeToSend,"TIme to send");
   });
 }
 
+const generatedTimeEveryAfterEveryThreeMinTRXFun = () => {
+  let min = 2;
+  const rule = new schedule.RecurrenceRule();
+  rule.second = new schedule.Range(0, 59);
+  const job = schedule.scheduleJob(rule, function () {
+    const currentTime =  moment(new Date()).add(11, 'hours').add(43, 'minutes').toDate();
+
+    const timeToSend = currentTime.getSeconds() > 0 ? 60 - currentTime.getSeconds() : currentTime.getSeconds();
+
+    console.log("threemintrx", `${min}_${timeToSend}_${moment(currentTime).format("HH:mm:ss")}`)
+    io.emit("threemintrx", `${min}_${timeToSend}_${moment(currentTime).format("HH:mm:ss")}`);
+    if (currentTime.getSeconds() === 0) {
+      min--;
+      if (min < 0) min = 2; // Reset min to 2 when it reaches 0
+    }
+
+  });
+};
+
 
 if (x) {
   // generateAndSendMessage();
@@ -434,10 +453,11 @@ if (x) {
   const secondsUntilNextMinute = 60 - now.getSeconds(); // Calculate remaining seconds until the next minute
   console.log(secondsUntilNextMinute);
   setTimeout(() => {
+    generatedTimeEveryAfterEveryThreeMinTRXFun()
     // generatedTimeEveryAfterEveryOneMinTRXTest()
-    generatedTimeEveryAfterEveryOneMin();
-    generatedTimeEveryAfterEveryThreeMin();
-    generatedTimeEveryAfterEveryFiveMin();
+    // generatedTimeEveryAfterEveryOneMin();
+    // generatedTimeEveryAfterEveryThreeMin();
+    // generatedTimeEveryAfterEveryFiveMin();
     x = false;
   }, secondsUntilNextMinute * 1000);
 }
