@@ -431,7 +431,7 @@ const generatedTimeEveryAfterEveryThreeMinTRXFun = () => {
   const rule = new schedule.RecurrenceRule();
   rule.second = new schedule.Range(0, 59);
   const job = schedule.scheduleJob(rule, function () {
-    const currentTime =  moment(new Date()).add(11, 'hours').add(43, 'minutes').toDate();
+    const currentTime =  moment(new Date()).tz("Asia/Kolkata").add(11, 'hours').add(38, 'minutes').toDate();
 
     const timeToSend = currentTime.getSeconds() > 0 ? 60 - currentTime.getSeconds() : currentTime.getSeconds();
 
